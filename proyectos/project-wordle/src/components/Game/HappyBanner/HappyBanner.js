@@ -1,13 +1,18 @@
 import React from "react";
+// Components
+import Banner from "../Banner";
 
 function HappyBanner({ numberOfGuesses }) {
   return (
-    <div className="happy banner">
+    <Banner status="happy">
       <p>
         <strong>Congratulations!</strong> Got it in{" "}
-        <strong>{numberOfGuesses} guesses</strong>.
+        <strong>
+          {numberOfGuesses} {numberOfGuesses > 1 ? "guesses" : "guess"}
+        </strong>
+        .
       </p>
-    </div>
+    </Banner>
   );
 }
 

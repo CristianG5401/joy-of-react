@@ -4,6 +4,8 @@ import GuessForm from "./GuessForm";
 import GuessResults from "./GuessResults";
 import HappyBanner from "./HappyBanner";
 import SadBanner from "./SadBanner";
+//Constants
+import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
 
 import { sample } from "../../utils";
 import { WORDS } from "../../data";
@@ -39,7 +41,7 @@ function Game() {
         isDisabled={isGameCompleted}
       />
       {didUserWon && <HappyBanner numberOfGuesses={guesses.length} />}
-      {!didUserWon && guesses.length >= 6 && <SadBanner answer={answer} />}
+      {!didUserWon && guesses.length >= NUM_OF_GUESSES_ALLOWED && <SadBanner answer={answer} />}
     </>
   );
 }
