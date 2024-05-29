@@ -2,20 +2,37 @@ import React, { useState } from "react";
 
 // Components
 import Button from "../Button";
-import Toast from "../Toast";
+import ToastShelf from "../ToastShelf/ToastShelf";
 // Styles
 import styles from "./ToastPlayground.module.css";
 
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
+const DEFAULT_VARIANT = VARIANT_OPTIONS[0];
 
 function ToastPlayground() {
   const [message, setMessage] = useState("");
-  const [selectedVariant, setVariant] = useState(VARIANT_OPTIONS[0]);
-  const [isToastVisible, setToastVisibility] = useState(false);
+  const [selectedVariant, setVariant] = useState(DEFAULT_VARIANT);
+  const [toasts, setToasts] = React.useState([]);
+
+  const handleDismiss = (timestamp) => {
+    const nextToasts = toasts.filter((toast) => toast.timestamp !== timestamp);
+
+    setToasts(nextToasts);
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    setToastVisibility(true);
+
+    const newToast = {
+      message,
+      variant: selectedVariant,
+      timestamp: Date.now(),
+    };
+    const nextToasts = [...toasts, newToast];
+
+    setToasts(nextToasts);
+    setMessage("");
+    setVariant(DEFAULT_VARIANT);
   };
 
   console.log("*🪼 ToastPlaygroundData:", { message, selectedVariant });
@@ -26,9 +43,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      {isToastVisible && (
-        <Toast variant={selectedVariant} handleDismiss={() => setToastVisibility(false)}>{message}</Toast>
-      )}
+      <ToastShelf toasts={toasts} handleDismiss={handleDismiss} />
 
       <div className={styles.controlsWrapper}>
         <form onSubmit={submitHandler}>
