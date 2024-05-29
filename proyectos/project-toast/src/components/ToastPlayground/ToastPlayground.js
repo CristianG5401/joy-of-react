@@ -3,8 +3,6 @@ import React, { useState } from "react";
 // Components
 import Button from "../Button";
 import Toast from "../Toast";
-// Hooks
-import useToggle from "../../hooks/useToggle";
 // Styles
 import styles from "./ToastPlayground.module.css";
 
@@ -18,7 +16,7 @@ function ToastPlayground() {
   const submitHandler = (event) => {
     event.preventDefault();
     setToastVisibility(true);
-  }
+  };
 
   console.log("*🪼 ToastPlaygroundData:", { message, selectedVariant });
   return (
@@ -29,7 +27,7 @@ function ToastPlayground() {
       </header>
 
       {isToastVisible && (
-        <Toast handleDismiss={() => setToastVisibility(false)} />
+        <Toast variant={selectedVariant} handleDismiss={() => setToastVisibility(false)}>{message}</Toast>
       )}
 
       <div className={styles.controlsWrapper}>
@@ -45,6 +43,7 @@ function ToastPlayground() {
             <div className={styles.inputWrapper}>
               <textarea
                 id="message"
+                required
                 className={styles.messageInput}
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
@@ -66,6 +65,7 @@ function ToastPlayground() {
                   <label htmlFor={radioVariantId}>
                     <input
                       id={radioVariantId}
+                      required
                       type="radio"
                       name="variant"
                       value={variantOption}
