@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 // Components
 import Button from "../Button";
+// Contexts
+import { ToastContext } from "../../providers/ToastProvider";
 // Styles
 import styles from "./ToastPlayground.module.css";
 
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 const DEFAULT_VARIANT = VARIANT_OPTIONS[0];
 
-const ToastPlaygroundForm = ({ addToast }) => {
+const ToastPlaygroundForm = () => {
   const [message, setMessage] = useState("");
   const [selectedVariant, setVariant] = useState(DEFAULT_VARIANT);
+
+  const { createToast } = useContext(ToastContext);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -20,7 +24,7 @@ const ToastPlaygroundForm = ({ addToast }) => {
       timestamp: Date.now(),
     };
 
-    addToast(newToast);
+    createToast(newToast);
     setMessage("");
     setVariant(DEFAULT_VARIANT);
   };

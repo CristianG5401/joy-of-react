@@ -1,9 +1,14 @@
-import React from "react";
-
+import React, { useContext } from "react";
+// Components
 import Toast from "../Toast";
+// Contexts
+import { ToastContext } from "../../providers/ToastProvider";
+// Styles
 import styles from "./ToastShelf.module.css";
 
-function ToastShelf({ toasts, handleDismiss }) {
+function ToastShelf() {
+  const { toasts, dismissToast } = useContext(ToastContext);
+
   return (
     <ol className={styles.wrapper}>
       {toasts.map(({ variant, message, timestamp }) => {
@@ -11,7 +16,7 @@ function ToastShelf({ toasts, handleDismiss }) {
           <li key={timestamp} className={styles.toastWrapper}>
             <Toast
               variant={variant}
-              handleDismiss={() => handleDismiss(timestamp)}
+              handleDismiss={() => dismissToast(timestamp)}
             >
               {message}
             </Toast>

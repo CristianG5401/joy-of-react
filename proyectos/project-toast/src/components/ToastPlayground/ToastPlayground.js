@@ -7,20 +7,6 @@ import ToastShelf from "../ToastShelf/ToastShelf";
 import styles from "./ToastPlayground.module.css";
 
 function ToastPlayground() {
-  const [toasts, setToasts] = useState([]);
-
-  const handleDismiss = (timestamp) => {
-    const nextToasts = toasts.filter((toast) => toast.timestamp !== timestamp);
-
-    setToasts(nextToasts);
-  };
-
-  const addToast = (newToast) => {
-    const nextToasts = [...toasts, newToast];
-
-    setToasts(nextToasts);
-  };
-
   return (
     <div className={styles.wrapper}>
       <header>
@@ -28,8 +14,8 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <ToastShelf toasts={toasts} handleDismiss={handleDismiss} />
-      <ToastPlaygroundForm addToast={addToast} />
+      <ToastShelf />
+      <ToastPlaygroundForm />
     </div>
   );
 }
