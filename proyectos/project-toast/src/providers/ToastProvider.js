@@ -1,4 +1,7 @@
-import { createContext, useState, useMemo, useEffect } from "react";
+import { createContext, useState, useMemo, useCallback } from "react";
+
+// Hooks
+import useListenForKeydown from "../hooks/useListenForKeydown";
 
 export const ToastContext = createContext();
 
@@ -31,19 +34,10 @@ const ToastProvider = ({ children }) => {
     };
   }, [toasts]);
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === "Escape") {
-        setToasts([]);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
+  const dismissAllToasts = useCallback(() => {
+    setToasts([]);
   }, []);
+  useListenForKeydown("Escape", dismissAllToasts);
 
   return (
     <ToastContext.Provider value={providerValue}>
