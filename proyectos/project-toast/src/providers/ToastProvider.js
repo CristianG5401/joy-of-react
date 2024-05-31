@@ -1,4 +1,4 @@
-import { createContext, useState, useMemo } from "react";
+import { createContext, useState, useMemo, useEffect } from "react";
 
 export const ToastContext = createContext();
 
@@ -30,6 +30,20 @@ const ToastProvider = ({ children }) => {
       dismissToast,
     };
   }, [toasts]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setToasts([]);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <ToastContext.Provider value={providerValue}>
