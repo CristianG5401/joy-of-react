@@ -53,16 +53,12 @@ const ToastPlaygroundForm = () => {
 
         <div className={styles.row}>
           <div className={styles.label}>Variant</div>
+          <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
+            {VARIANT_OPTIONS.map((variantOption) => {
+              const radioVariantId = `variant-${variantOption}`;
 
-          {VARIANT_OPTIONS.map((variantOption) => {
-            const radioVariantId = `variant-${variantOption}`;
-
-            return (
-              <div
-                key={radioVariantId}
-                className={`${styles.inputWrapper} ${styles.radioWrapper}`}
-              >
-                <label htmlFor={radioVariantId}>
+              return (
+                <label key={radioVariantId} htmlFor={radioVariantId}>
                   <input
                     id={radioVariantId}
                     required
@@ -70,13 +66,13 @@ const ToastPlaygroundForm = () => {
                     name="variant"
                     value={variantOption}
                     checked={selectedVariant === variantOption}
-                    onChange={() => setVariant(variantOption)}
+                    onChange={(event) => setVariant(event.target.value)}
                   />
                   {variantOption}
                 </label>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
         <div className={styles.row}>
