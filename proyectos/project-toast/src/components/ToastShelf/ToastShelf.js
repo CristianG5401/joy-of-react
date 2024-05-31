@@ -7,7 +7,7 @@ import { ToastContext } from "../../providers/ToastProvider";
 import styles from "./ToastShelf.module.css";
 
 function ToastShelf() {
-  const { toasts, dismissToast } = useContext(ToastContext);
+  const { toasts } = useContext(ToastContext);
 
   return (
     <ol
@@ -20,8 +20,8 @@ function ToastShelf() {
         return (
           <li key={timestamp} className={styles.toastWrapper}>
             <Toast
+              timestamp={timestamp}
               variant={variant}
-              handleDismiss={() => dismissToast(timestamp)}
             >
               {message}
             </Toast>
