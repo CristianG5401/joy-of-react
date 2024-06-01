@@ -19,8 +19,13 @@ const ToastProvider = ({ children }) => {
       });
     };
 
-    const createToast = (newToast) => {
+    const createToast = (message, variant) => {
       setToasts((currentToasts) => {
+        const newToast = {
+          message,
+          variant,
+          timestamp: Date.now(),
+        };
         const nextToasts = [...currentToasts, newToast];
 
         return nextToasts;

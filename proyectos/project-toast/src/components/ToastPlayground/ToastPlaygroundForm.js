@@ -17,14 +17,8 @@ const ToastPlaygroundForm = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-
-    const newToast = {
-      message,
-      variant: selectedVariant,
-      timestamp: Date.now(),
-    };
-
-    createToast(newToast);
+    
+    createToast(message, selectedVariant);
     setMessage("");
     setVariant(DEFAULT_VARIANT);
   };
